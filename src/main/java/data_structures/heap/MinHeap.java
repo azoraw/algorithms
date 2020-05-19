@@ -3,16 +3,16 @@ package data_structures.heap;
 public class MinHeap {
 
     private Node[] heap;
-    private int counter;
+    private int heapSize;
 
     MinHeap(int maxHeapSize) {
         this.heap = new Node[maxHeapSize];
-        counter = 0;
+        heapSize = 0;
     }
 
     public void push(Node node) {
-        int currentIndex = counter;
-        heap[counter++] = node;
+        int currentIndex = heapSize;
+        heap[heapSize++] = node;
 
         while (true) {
             int parentIndex = getParentIndex(currentIndex);
@@ -28,18 +28,36 @@ public class MinHeap {
 
     public Node pop() {
         Node value = heap[0];
-        heap[0] = heap[--counter];
-        heap[counter] = null;
+        heap[0] = heap[--heapSize];
+        heap[heapSize] = null;
         int currentIndex = 0;
 
-        while (true) {
-            if(getRightChild(currentIndex) < counter) {
+        while (currentIndex < heapSize) {
+            int leftChildIndex = getLeftChildIndex(currentIndex);
+            int rightChildIndex = getRightChildIndex(currentIndex);
+            Node leftChild = heap[leftChildIndex];
+            Node rightChild = heap[rightChildIndex];
+            Node parent = heap[currentIndex];
 
-                if(heap[currentIndex].value > getRightChild(currentIndex).value  && getLeftChild(currentIndex).value])
-            }
+
+
         }
 
         return value;
+    }
+
+    private void swap(int nodeIndex1, int nodeIndex2) {
+        Node tmp = heap[nodeIndex1];
+        heap[nodeIndex1] = heap[nodeIndex2];
+        heap[nodeIndex2] = tmp;
+    }
+
+    private int getRightChildIndex(int currentIndex) {
+        return 2 * currentIndex + 2;
+    }
+
+    private int getLeftChildIndex(int currentIndex) {
+        return 2 * currentIndex + 1;
     }
 
     private int getParentIndex(int childIndex) {
